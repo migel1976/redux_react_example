@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore,bindActionCreators} from 'redux';
 import {connect, Provider} from 'react-redux';
 
 const initialStore={
@@ -41,21 +41,21 @@ const store=createStore(rootreducer);
 class App extends React.Component{
 	render(){
 		const {firstName,secondName}=this.props;
-		const dispatch=this.props.dispatch;
+		const {changeFirstName,changeSecondName}=this.props;
 		return(
 			<div>
 				Aloha!!! Kitesurfing is coming!!!
 				<div>
 					<input value={firstName}
 						onChange={(event)=>{
-							dispatch(changeFirstName(event.target.value))}
+							changeFirstName(event.target.value)}
 						} />
 				</div>
 
 				<div>
 					<input value={secondName}
 						onChange={(event)=>{
-							dispatch(changeSecondName(event.target.value))}
+							changeSecondName(event.target.value)}
 						} />
 				</div>
 				<div>
@@ -72,14 +72,21 @@ class App extends React.Component{
 	}
 };
 
-const mapStateToProps=(state)=>{
+const putStateToProps=(state)=>{
 	return{
 		firstName:state.firstName,
 		secondName:state.secondName
 	}
 };
 
-const WrappedApp=connect(mapStateToProps)(App);
+const putActionsToProps=(dispatch)=>{
+	return{
+		changeFirstName:bindActionCreators(changeFirstName,dispatch),
+		changeSecondName:bindActionCreators(changeSecondName,dispatch)
+	}
+};
+	
+const WrappedApp=connect(putStateToProps,putActionsToProps)(App);
 		
 
 ReactDOM.render(
