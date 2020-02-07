@@ -40,25 +40,32 @@ const store=createStore(rootreducer);
 
 class App extends React.Component{
 	render(){
+		const {firstName,secondName}=this.props;
 		const dispatch=this.props.dispatch;
 		return(
 			<div>
 				Aloha!!! Kitesurfing is coming!!!
 				<div>
-					<input value={this.props.firstName}
+					<input value={firstName}
 						onChange={(event)=>{
 							dispatch(changeFirstName(event.target.value))}
 						} />
 				</div>
 
 				<div>
-					<input value={this.props.secondName}
+					<input value={secondName}
 						onChange={(event)=>{
 							dispatch(changeSecondName(event.target.value))}
 						} />
 				</div>
 				<div>
 					{this.props.firstName + ' ' + this.props.secondName}
+				</div>
+				<div>
+					{`${this.props.firstName} ${this.props.secondName}`}
+				</div>
+				<div>
+					{`${firstName} ${secondName}`}
 				</div>
 			</div>
 	)
